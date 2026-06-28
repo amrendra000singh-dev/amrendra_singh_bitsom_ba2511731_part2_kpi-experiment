@@ -1,0 +1,15 @@
+part2_kpi_experiment/
+├── data/
+│   └── campaign_experiment_data.xlsx
+├── analysis/
+│   ├── experiment_analysis.xlsx
+│   └── hypothesis_test_notes.md
+├── outputs/
+│   ├── kpi_tree.png
+│   ├── experiment_summary.xlsx
+│   └── recommendation_memo.md
+├── screenshots/
+│   ├── summary_metrics.png
+│   ├── hypothesis_test_output.png
+│   └── kpi_tree_preview.png
+└── README.md

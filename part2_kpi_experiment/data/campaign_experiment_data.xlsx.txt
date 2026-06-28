@@ -1,0 +1,29 @@
+markdown_content = """
+# Business Problem Statement
+
+## Decision to be Made
+Should we launch the new campaign across our entire user base?
+
+## Who is Impacted?
+Our existing and potential customers, the marketing department (budget allocation, campaign strategy), the sales team (lead quality, conversion rates), and ultimately the company's revenue and profitability.
+
+## Metric to Improve
+The primary goal of the new campaign is to significantly improve the **Paid Conversion Rate**.
+
+## Risks to Monitor
+- **Increased churn rate**: The new campaign might attract users who are less loyal or increase dissatisfaction among existing users.
+- **Negative brand perception**: The campaign messaging or execution could lead to negative sentiment or damage brand image.
+- **Increased support ticket volume**: New users or changes introduced by the campaign might lead to confusion and a surge in customer support inquiries.
+- **Reduced Average Revenue Per User (ARPU)**: While conversion might increase, the quality of converted users or their spending habits might decrease.
+
+## Evidence Required
+To make an informed decision, we require:
+- Statistically significant evidence that the new campaign leads to a meaningful increase in the **Paid Conversion Rate**.
+- Confirmation that there is no statistically significant negative impact on key guardrail metrics such as churn rate, support ticket volume, refund rate, or average revenue per user.
+- Insights into segment-specific performance to identify if the campaign performs better or worse for particular user groups (e.g., by region, device type, or traffic source).
+"""
+
+with open('README.md', 'w') as f:
+    f.write(markdown_content)
+
+print("README.md created successfully with the busines

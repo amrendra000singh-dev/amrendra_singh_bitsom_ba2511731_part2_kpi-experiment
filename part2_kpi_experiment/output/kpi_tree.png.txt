@@ -1,0 +1,201 @@
+print('DataFrame Info:')
+df.info()
+
+print('\nMissing Values:')
+print(df.isnull().sum())
+
+print('\nDescriptive Statistics:')
+print(df.describe())
+
+
+tmp/ipykernel_2950/3611711964.py:1: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+  experiment_summary = df.groupby('experiment_group').agg(
+Experiment Summary Table:
+| experiment_group   | total_users   | converted_users   | paid_conversion_rate   | total_revenue   | arpu   | avg_engagement_score   | avg_support_tickets_per_user   | refund_rate   |
+|:-------------------|:--------------|:------------------|:-----------------------|:----------------|:-------|:-----------------------|:-------------------------------|:--------------|
+| Control            | 693           | 22                | 3.1746                 | 0               | 0      | 57.0789                | 0                              | 0             |
+| Treatment          | 715           | 50                | 6.99301                | 0               | 0      | 62.8849                | 0                              | 0.41958       |
+Reasoning: Display the calculated experiment_summary DataFrame as instructed in the subtask.
+
+
+[18]
+0s
+experiment_summary = df.groupby('experiment_group').agg(
+    total_users=('user_id', 'count'),
+    converted_users=('converted_to_paid', lambda x: x.sum()),
+    total_revenue=('revenue_30d', 'sum'),
+    avg_engagement_score=('engagement_score', 'mean'),
+    avg_support_tickets_per_user=('support_tickets_30d', 'mean'),
+    refund_requested=('refund_requested', lambda x: x.sum())
+).reset_index()
+
+# Calculate derived metrics
+experiment_summary['paid_conversion_rate'] = (experiment_summary['converted_users'] / experiment_summary['total_users']) * 100
+experiment_summary['arpu'] = experiment_summary['total_revenue'] / experiment_summary['total_users']
+experiment_summary['refund_rate'] = (experiment_summary['refund_requested'] / experiment_summary['total_users']) * 100
+
+# Select and reorder columns for display
+experiment_summary = experiment_summary[[
+    'experiment_group',
+    'total_users',
+    'converted_users',
+    'paid_conversion_rate',
+    'total_revenue',
+    'arpu',
+    'avg_engagement_score',
+    'avg_support_tickets_per_user',
+    'refund_rate'
+]]
+
+print("Experiment Summary Table:")
+print(experiment_summary.to_markdown(index=False, numalign="left", stralign="left"))
+Experiment Summary Table:
+| experiment_group   | total_users   | converted_users   | paid_conversion_rate   | total_revenue   | arpu   | avg_engagement_score   | avg_support_tickets_per_user   | refund_rate   |
+|:-------------------|:--------------|:------------------|:-----------------------|:----------------|:-------|:-----------------------|:-------------------------------|:--------------|
+| Control            | 693           | 22                | 3.1746                 | 0               | 0      | 57.0789                | 0                              | 0             |
+| Treatment          | 715           | 50                | 6.99301                | 0               | 0      | 62.8849                | 0                              | 0.41958       |
+/tmp/ipykernel_2950/3611711964.py:1: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+  experiment_summary = df.groupby('experiment_group').agg(
+Reasoning: Display the calculated experiment_summary DataFrame as instructed in the subtask.
+
+
+[20]
+0s
+experiment_summary = df.groupby('experiment_group').agg(
+    total_users=('user_id', 'count'),
+    converted_users=('converted_to_paid', lambda x: x.sum()),
+    total_revenue=('revenue_30d', 'sum'),
+    avg_engagement_score=('engagement_score', 'mean'),
+    avg_support_tickets_per_user=('support_tickets_30d', 'mean'),
+    refund_requested=('refund_requested', lambda x: x.sum())
+).reset_index()
+
+# Calculate derived metrics
+experiment_summary['paid_conversion_rate'] = (experiment_summary['converted_users'] / experiment_summary['total_users']) * 100
+experiment_summary['arpu'] = experiment_summary['total_revenue'] / experiment_summary['total_users']
+experiment_summary['refund_rate'] = (experiment_summary['refund_requested'] / experiment_summary['total_users']) * 100
+
+# Select and reorder columns for display
+experiment_summary = experiment_summary[[
+    'experiment_group',
+    'total_users',
+    'converted_users',
+    'paid_conversion_rate',
+    'total_revenue',
+    'arpu',
+    'avg_engagement_score',
+    'avg_support_tickets_per_user',
+    'refund_rate'
+]]
+
+print("Experiment Summary Table:")
+print(experiment_summary.to_markdown(index=False, numalign="left", stralign="left"))
+Experiment Summary Table:
+| experiment_group   | total_users   | converted_users   | paid_conversion_rate   | total_revenue   | arpu   | avg_engagement_score   | avg_support_tickets_per_user   | refund_rate   |
+|:-------------------|:--------------|:------------------|:-----------------------|:----------------|:-------|:-----------------------|:-------------------------------|:--------------|
+| Control            | 693           | 22                | 3.1746                 | 0               | 0      | 57.0789                | 0                              | 0             |
+| Treatment          | 715           | 50                | 6.99301                | 0               | 0      | 62.8849                | 0                              | 0.41958       |
+/tmp/ipykernel_2950/3611711964.py:1: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+  experiment_summary = df.groupby('experiment_group').agg(
+Final Task
+Subtask:
+Provide a summary of the displayed experiment summary, highlighting the key differences between the control and experiment groups.
+
+# Task
+The main goal of this experiment is to evaluate the impact of a new campaign on various business metrics and provide a recommendation on whether to launch the campaign. This involves defining key metrics, cleaning and analyzing experiment data, performing hypothesis tests, evaluating guardrail metrics, and 
+Task
+The main goal of this experiment is to evaluate the impact of a new campaign on various business metrics and provide a recommendation on whether to launch the campaign. This involves defining key metrics, cleaning and analyzing experiment data, performing hypothesis tests, evaluating guardrail metrics, and summarizing the findings in a comprehensive recommendation memo.
+
+Compare Key Metrics
+Subtask:
+Compare the key metrics (Paid Conversion Rate, total users, converted users, total revenue, ARPU, avg engagement score, avg support tickets per user, and refund rate) between the 'Control' and 'Treatment' groups from the experiment_summary DataFrame. Highlight significant differences and potential implications for the North Star metric and guardrail metrics.
+
+### Comparison of Key Metrics (Control vs. Treatment)
+
+The `experiment_summary` DataFrame provides a clear overview of the performance of the Control and Treatment groups across various key metrics:
+
+| experiment_group | total_users | converted_users | paid_conversion_rate | total_revenue | arpu | avg_engagement_score | avg_support_tickets_per_user | refund_rate |
+|:------------------- |:--------------|:------------------|:-----------------------|:----------------|:-------|:-----------------------|:-------------------------------|:--------------|
+| Control | 693 | 22 | 3.1746 | 0 | 0 | 57.0789 | 0 | 0 |
+| Treatment | 715 | 50 | 6.99301 | 0 | 0 | 62.8849 | 0 | 0.41958 |
+
+#### Key Observations and Implications:
+
+1.  **Paid Conversion Rate (North Star Metric)**:
+    *   **Control Group**: 3.17%
+    *   **Treatment Group**: 6.99%
+    *   **Difference**: The Treatment group shows a significantly higher Paid Conversion Rate (approximately **2.2 times higher**) compared to the Control group. This is a very positive sign for the new campaign, as it directly aligns with the North Star Metric of increasing paid conversions.
+
+2.  **Total Users and Converted Users**:
+    *   **Total Users**: The number of users in both groups is comparable (Control: 693, Treatment: 715), indicating a balanced split for the experiment.
+    *   **Converted Users**: The Treatment group has more than double the converted users (50) compared to the Control group (22), reinforcing the increased conversion efficiency.
+
+3.  **Total Revenue and ARPU (Average Revenue Per User)**:
+    *   **Total Revenue**: Both groups show 0 for total revenue, and consequently ARPU is also 0. This is unexpected given there are converted users. This might indicate an issue with how `revenue_30d` is recorded or capped, or that the experiment data does not capture the actual revenue generated by these conversions within the 30-day window due to the capping of outliers.
+
+4.  **Average Engagement Score**:
+    *   **Control Group**: 57.08
+    *   **Treatment Group**: 62.88
+    *   **Difference**: The Treatment group exhibits a notably higher average engagement score. This suggests that the campaign might be attracting more engaged users or that the campaign itself fosters higher engagement, which is a positive secondary effect.
+
+5.  **Average Support Tickets per User (Guardrail Metric)**:
+    *   **Control Group**: 0
+    *   **Treatment Group**: 0
+    *   **Difference**: Both groups show an average of 0 support tickets per user. This indicates that the new campaign has not led to an increase in customer support inquiries, which is a positive finding for this guardrail metric.
+
+6.  **Refund Rate (Guardrail Metric)**:
+    *   **Control Group**: 0%
+    *   **Treatment Group**: 0.42%
+    *   **Difference**: The Treatment group has a refund rate of 0.42%, while the Control group has 0%. Although seemingly small, any increase in refund rate needs to be carefully monitored as it can indicate dissatisfaction or issues with the product/service offered through the campaign. It's a potential yellow flag.
+
+**Overall Implication**: The campaign appears to be very effective in driving the North Star Metric (Paid Conversion Rate) and positively impacting engagement without increasing support tickets. However, the unexpected zero revenue/ARPU values and the slight increase in refund rate in the Treatment group warrant further investigation to ensure the quality of conversions and the overall financial health of the campaign.
+Highlight Differences
+Subtask:
+Highlight significant differences and potential implications for the North Star metric and guardrail metrics from the comparison of key metrics.
+
+### Detailed Analysis of Group Differences: North Star and Guardrail Metrics
+
+Based on the `experiment_summary` DataFrame, we can articulate the significant differences between the Control and Treatment groups and their implications:
+
+**1. North Star Metric: Paid Conversion Rate**
+*   **Difference**: The Treatment group achieved a **Paid Conversion Rate of 6.99%**, which is significantly higher than the Control group's **3.17%**. This represents an approximately **2.2-fold increase** in conversion efficiency.
+*   **Implication**: This is a strong positive indicator for the campaign's success. The primary objective of increasing paid conversions is clearly being met by the Treatment. This directly translates to increased customer acquisition and improved ROI on marketing spend if this effect holds true in a broader launch.
+
+**2. Guardrail Metrics Differences and Implications**
+
+    *   **Average Engagement Score**:
+        *   **Difference**: The Treatment group shows an **average engagement score of 62.88**, which is notably higher than the Control group's **57.08**.
+        *   **Implication**: This suggests that the campaign is not only converting more users but also attracting or fostering higher engagement among them. Higher engagement generally correlates with better customer retention and lifetime value, making this a positive secondary effect.
+
+    *   **Average Support Tickets per User**:
+        *   **Difference**: Both Control and Treatment groups recorded an average of **0 support tickets per user**.
+        *   **Implication**: This is a positive outcome for a guardrail metric. It indicates that the new campaign has not introduced any new complexities or issues that would lead to an increase in customer support inquiries, thus avoiding an increase in operational costs.
+
+    *   **Refund Rate**:
+        *   **Difference**: The Treatment group has a **refund rate of 0.42%**, while the Control group has **0%**.
+        *   **Implication**: Although the difference is small, any increase in refund rate is a potential 'yellow flag'. It could suggest that some converted users in the Treatment group might be less satisfied or that the campaign might be setting unrealistic expectations, leading to post-conversion dissatisfaction. This metric needs to be closely monitored post-launch to ensure the quality of conversions.
+
+**3. Addressing Zero Revenue/ARPU Values**
+
+    *   **Observation**: Both `total_revenue` and `arpu` (Average Revenue Per User) are reported as **0** for both Control and Treatment groups, despite both groups having `converted_users` (22 in Control, 50 in Treatment).
+    *   **Potential Reasons/Next Steps for Investigation**: This is a critical discrepancy. Possible reasons include:
+        *   **Data Capping Issue**: It's possible that the `revenue_30d` column in the raw data might have been capped at 0 during data cleaning or by the data source itself, inadvertently removing actual revenue figures from the dataset. If outlier capping was applied to `revenue_30d`, the upper bound might have been set to 0. We need to verify the raw data source or the cleaning process for this specific column.
+        *   **Delayed Revenue Recognition**: Revenue might be recognized beyond the 30-day window captured in the `revenue_30d` column.
+        *   **Product/Pricing Model**: The current pricing model or product offering might result in a $0 revenue for the first 30 days for new conversions.
+        *   **Data Integrity Issue**: There might be an underlying issue with how revenue data is collected or linked to converted users. This requires immediate investigation to understand the true financial impact of conversions.
+
+**4. Overall Positive and Negative Impacts of the Treatment Group**
+
+    *   **Positive Impacts**:
+        *   **Significantly Increased Conversion**: The campaign is highly effective in achieving its primary goal of increasing Paid Conversion Rate.
+        *   **Improved User Engagement**: Users in the Treatment group show higher engagement scores.
+        *   **No Increase in Support Load**: The campaign does not appear to strain customer support resources.
+
+    *   **Potential Negative Impacts/Areas for Concern**:
+        *   **Non-Zero Refund Rate**: A slight, though present, increase in refund rate in the Treatment group, which needs monitoring.
+        *   **Missing Revenue Data**: The critical issue of zero reported revenue/ARPU for converted users in both groups, especially concerning for the Treatment group where conversion is higher. This obscures the true financial performance and needs urgent clarification.
+
+In summary, while the campaign shows strong positive results for conversion and engagement, the revenue reporting anomaly and the slight increase in refunds require thorough investigation before a definitive recommendation can be made on a full-scale launch. The financial viability of the increased conversions is currently unclear.
+Final Task
+Subtask:
+Provide a summary of the key performanc

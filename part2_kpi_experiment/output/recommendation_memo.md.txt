@@ -1,0 +1,22 @@
+```markdown
+### Interpretation of T-test Results
+
+**T-statistic: -3.2801**
+**P-value: 0.0011**
+
+#### Context of Hypothesis Testing:
+*   **Null Hypothesis (H0)**: There is no significant difference in the mean paid conversion rates between the Control group and the Treatment group (μ_control = μ_treatment).
+*   **Alternative Hypothesis (H1)**: There is a significant difference in the mean paid conversion rates between the Control group and the Treatment group (μ_control ≠ μ_treatment).
+
+#### Interpretation:
+1.  **P-value (0.0011)**:
+    *   The p-value is 0.0011, which is significantly less than the common alpha level of 0.05 (0.0011 < 0.05). This indicates strong evidence against the null hypothesis.
+    *   A p-value this low means that if there were truly no difference between the two groups, observing a difference as extreme as or more extreme than what we found would be very unlikely (occurring only about 0.11% of the time).
+
+2.  **T-statistic (-3.2801)**:
+    *   The t-statistic measures the size of the difference relative to the variation in the sample data. The negative sign indicates that the mean of the first sample (`control_conversion`) is less than the mean of the second sample (`treatment_conversion`). In practical terms, the Treatment group has a higher conversion rate than the Control group.
+    *   The magnitude of the t-statistic (3.2801) is relatively large, further suggesting a substantial difference between the groups.
+
+#### Conclusion on Statistical Significance:
+Based on the very low p-value (0.0011), we **reject the null hypothesis**. This means there is a **statistically significant difference** in the paid conversion rates between the Control and Treatment groups. Specifically, the new campaign (Treatment group) has a significantly higher paid conversion rate compared to the Control group.
+```
